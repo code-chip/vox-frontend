@@ -1,0 +1,22 @@
+services:
+  angular:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        PROJECT_NAME: vox 
+    container_name: angular_frontend
+    volumes:
+      - .:/app
+      - /app/node_modules
+    ports:
+      - "4200:4200"
+    networks:
+      - app_networks
+    environment:
+      - CHOKIDAR_USEPOLLING=true  # Ajuda a detectar mudanças em sistemas de arquivos Docker    
+   
+networks:
+  app_networks:
+    name: ${PROJECT_NAME}_network
+    driver: bridge
